@@ -31,7 +31,9 @@ async function startServer() {
     };
 
     if (process.env.NODE_ENV == "staging") {
-      clientConnectionOptions.ssl = { rejectUnauthorized: false };
+      clientConnectionOptions.ssl = {
+        rejectUnauthorized: false,
+      };
     } else {
       clientConnectionOptions.ssl = false;
     }
