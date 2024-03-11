@@ -1,11 +1,13 @@
 {
-  "name": "pesto_tech_assignment",
+  "name": "godpage_server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./app/index.js"
+    "dev": "nodemon --exec \"NODE_ENV=development node -r dotenv-extended/config ./app/index.js\"",
+    "start": "node -r dotenv-extended/config ./app/index.js",
+    "start:production": "NODE_ENV=production node -r dotenv-extended/config ./app/index.js",
+    "start:staging": "NODE_ENV=staging node -r dotenv-extended/config ./app/index.js"
   },
   "keywords": [],
   "author": "",

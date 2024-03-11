@@ -1,4 +1,4 @@
-require("dotenv-extended").config({ path: "./.env.development" });
+require("dotenv-extended").config({ path: `./.env.${process.env.NODE_ENV}` });
 const pg = require("pg");
 const express = require("express");
 const fs = require("fs");
@@ -13,6 +13,7 @@ const cors = require("cors");
 app.use(cors({ ...corsWhiteList }));
 app.use(express.json());
 
+console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 async function startServer() {
   try {
     console.log("[DEBUG] Establishing DB connection");
@@ -21,12 +22,21 @@ async function startServer() {
 
     const dbName = config.database.database;
 
-    const client = new pg.Client({
+    const clientConnectionOptions = {
       user: config.database.username,
       password: config.database.password,
       host: config.database.host,
       database: "postgres",
-    });
+      port: "5432",
+    };
+
+    if (process.env.NODE_ENV == "staging") {
+      clientConnectionOptions.ssl = { rejectUnauthorized: false };
+    } else {
+      clientConnectionOptions.ssl = false;
+    }
+
+    const client = new pg.Client(clientConnectionOptions);
 
     await client.connect();
 
