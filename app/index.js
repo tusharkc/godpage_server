@@ -9,6 +9,7 @@ const registerRoutes = require("./utils/registerRoutes");
 const corsWhiteList = require("./appConstants/corsWhiteList");
 const sequelize = require("./db");
 const cors = require("cors");
+const errorHandler = require("./middlewares/errorHandler");
 
 app.use(cors({ ...corsWhiteList }));
 app.use(express.json());
@@ -69,6 +70,8 @@ async function startServer() {
 
     // Register routes
     registerRoutes(app);
+
+    app.use(errorHandler);
 
     app.listen(config.port, () => {
       console.log(`Server listening on port ${config.port}`);

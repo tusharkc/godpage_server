@@ -5,7 +5,7 @@ const express = require("express");
 function registerRoutes(app) {
   const apiRouter = express.Router();
 
-  const routesPath = path.join(__dirname, ".", "module", "**");
+  const routesPath = path.join(__dirname, "..", "module", "**");
   const routesFiles = glob.sync(routesPath, { absolute: true });
 
   routesFiles
