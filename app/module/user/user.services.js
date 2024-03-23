@@ -44,13 +44,13 @@ module.exports = {
 
   signUpService: async (serviceInputParams) => {
     try {
-      const { email, password } = serviceInputParams;
+      const { email, password, fullName } = serviceInputParams;
 
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
       const [user, created] = await UserModel.findOrCreate({
-        where: { email: email },
+        where: { email: email, fullName },
         defaults: { password: hashedPassword },
       });
 

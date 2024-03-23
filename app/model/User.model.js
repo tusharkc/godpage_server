@@ -10,6 +10,12 @@ module.exports = () => {
       allowNull: false,
       defaultValue: () => uuidv4(),
     },
+
+    fullName: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+
     password: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -19,13 +25,6 @@ module.exports = () => {
       allowNull: false,
     },
   });
-
-  User.associate = (model) => {
-    User.hasMany(model.Job, {
-      foreignKey: "userId",
-      as: "jobs",
-    });
-  };
 
   return User;
 };
